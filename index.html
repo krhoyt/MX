@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MX</title>
+    <!--
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    -->
+    <!-- <link href="material.css" rel="stylesheet" /> -->
+    <link href="mx.css" rel="stylesheet" />
+    <style>
+      html {
+        height: 100%;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      mx-hbox {
+        flex-basis: 0;
+        flex-grow: 1;
+      }
+
+      mx-list {
+        flex-basis: 0;
+        flex-grow: 40;
+      }
+
+      mx-vbox {
+        flex-basis: 0;
+        flex-grow: 60;
+      }
+
+      mx-radio-group mx-button.selected::part( label ) {
+        color: red;
+      }
+
+      /*
+      mx-button::part( button ) {
+        background: none;
+        background-color: var( --default-background-color );
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        height: 40px;
+        margin: 0;
+        padding: 0 24px 0 24px;
+      }
+
+      mx-button::part( label ) {
+        color: var( --default-color );
+        font-size: 16px;
+        font-weight: 500;
+        margin: 0;
+        padding: 0;
+      }
+
+      mx-hbox {
+        flex-basis: 0;
+        flex-grow: 1;
+      }
+
+      mx-icon-button::part( button ) {
+        cursor: pointer;
+      }
+
+      mx-icon-button::part( font ) {
+        direction: ltr;
+        font-family: 'Material Symbols Outlined';
+        font-style: normal;
+        font-weight: normal;
+        letter-spacing: normal;
+        line-height: 1;
+        text-transform: none;
+        white-space: nowrap;
+        word-wrap: normal;
+      }
+
+      mx-label::part( label ) {
+        cursor: default;
+        margin: 0;
+        padding: 0;
+      }
+
+      mx-list {
+        min-width: 300px;
+      }
+
+      mx-list::part( empty ) {
+        align-items: center;
+        flex-direction: column;
+        gap: 16px;
+        height: 100%;
+        justify-content: center;
+      }
+
+      mx-toolbar {
+        min-height: var( --size-extra-large );
+        padding: 0 4px 0 4px;
+      }
+
+      mx-toolbar mx-icon-button::part( button ) {
+        background: none;
+        border: none;
+        height: var( --size-large );
+        margin: 0;
+        min-height: var( --size-large );
+        min-width: var( --size-large );
+        padding: 0;
+        width: var( --size-large );
+      }
+
+      mx-toolbar mx-icon-button::part( font ) {
+        color: var( --default-color );
+        font-size: 24px;
+      }
+
+      mx-toolbar mx-label {
+        flex-basis: 0;
+        flex-grow: 1;
+        margin: 0 0 0 16px;
+      }
+
+      mx-toolbar mx-label::part( label ) {
+        color: var( --default-color );
+        cursor: default;
+        font-size: 20px;
+        font-weight: 500;
+        margin: 0;
+        padding: 0;
+        text-rendering: optimizeLegibility;
+      }
+      */
+    </style>
+  </head>
+  <body>
+    <mx-header>
+      <mx-toolbar>
+        <mx-icon-button name="menu"></mx-icon-button>
+        <mx-label text="Home"></mx-label>
+        <mx-icon-button name="search"></mx-icon-button>
+      </mx-toolbar>
+    </mx-header>
+    <mx-hbox>
+      <mx-list label-field="first">
+        <mx-label text="Add a review to get started!"></mx-label>
+        <mx-button label="Add review" variant="filled"></mx-button>
+      </mx-list>
+      <mx-vbox>
+        <mx-input></mx-input>
+      </mx-vbox>
+    </mx-hbox>
+    <mx-data-grid>
+      <mx-column data-field="first" header-text="First"></mx-column>
+      <mx-column data-field="last" header-text="Last"></mx-column>
+    </mx-data-grid>
+    <mx-radio-group>
+      <mx-button label="Home"></mx-button>
+      <mx-button label="Photos"></mx-button>
+      <mx-button label="Map"></mx-button>
+    </mx-radio-group>
+    <mx-tabs>
+      <mx-box label="One">
+        <mx-label text="One"></mx-label>
+      </mx-box>
+      <mx-box label="Two">
+        <mx-label text="Two"></mx-label>
+      </mx-box>
+      <mx-box label="Three">
+        <mx-label text="Three"></mx-label>
+      </mx-box>
+    </mx-tabs>
+    <script src="mx.js" type="module"></script>
+		<script>
+			const list = document.querySelector( 'mx-list' );
+      list.dataProvider = [
+        {first: 'Kevin', last: 'Hoyt'},
+        {first: 'Marna', last: 'Hoyt'},
+        {first: 'Paige', last: 'Hoyt'}
+      ];
+      list.selectedItemsCompareFunction = ( provider, value ) => {
+        if( provider.first === value.first &&
+            provider.last === value.last )
+            return true;
+        return false;
+      };
+      list.addEventListener( 'ready', ( evt ) => {
+        list.selectedItems = [
+          {first: 'Paige', last: 'Hoyt'},
+          {first: 'Marna', last: 'Hoyt'}
+        ];
+      } );
+      const grid = document.querySelector( 'mx-data-grid' );
+      grid.dataProvider = [
+        {first: 'Kevin', last: 'Hoyt'},
+        {first: 'Marna', last: 'Hoyt'},
+        {first: 'Paige', last: 'Hoyt'}
+      ]
+		</script>
+  </body>
+</html>
