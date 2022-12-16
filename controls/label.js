@@ -31,6 +31,8 @@ export default class MXLabel extends HTMLElement {
           font-family: var( --label-font-family );
           font-size: var( --label-font-size );
           font-weight: var( --label-font-weight );
+          margin: 0;
+          padding: 0;
           text-rendering: optimizeLegibility;          
         }
       </style>
