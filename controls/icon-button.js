@@ -40,13 +40,14 @@ export default class MXIconButton extends HTMLElement {
           font-weight: var( --icon-button-font-weight );
           height: var( --icon-button-size );          
           letter-spacing: normal;
+          line-height: var( --icon-button-size );
           margin: 0;
           padding: 0;
           text-align: var( --icon-button-text-align );
           text-rendering: optimizeLegibility;          
           text-transform: none;          
           white-space: nowrap;          
-          width: var( --icon-size );
+          width: var( --icon-button-size );
           word-wrap: normal;        
         }
 
