@@ -21,11 +21,13 @@ export default class MXButton extends HTMLElement {
 
         button {
           box-sizing: border-box;
+          cursor: var( --button-cursor );
           -webkit-tap-highlight-color: transparent;          
         }
 
         p {
           box-sizing: border-box;
+          cursor: var( --button-cursor );          
           margin: 0;
           padding: 0;
           text-rendering: optimizeLegibility;                    
