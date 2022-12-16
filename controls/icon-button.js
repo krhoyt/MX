@@ -21,6 +21,7 @@ export default class MXIconButton extends HTMLElement {
 
         button {
           box-sizing: border-box;
+          cursor: var( --icon-button-cursor );          
           -webkit-tap-highlight-color: transparent;          
         }        
 
@@ -32,7 +33,7 @@ export default class MXIconButton extends HTMLElement {
         i {
           box-sizing: border-box;          
           color: var( --icon-button-color );
-          cursor: var( --icon-button-cursor );
+          cursor: var( --icon-button-cursor );                    
           direction: ltr;          
           font-family: var( --icon-button-font-family );
           font-size: var( --icon-button-font-size );          
