@@ -69,7 +69,7 @@ export default class MXIcon extends HTMLElement {
 
   // When things change
   _render() {
-    this.$symbol.innerText = this.name === null ? '' : this.$name;
+    this.$symbol.innerText = this.name === null ? '' : this.name;
     this.$image.src = this.src === null ? '' : this.src;
 
     if( this.name !== null ) {
