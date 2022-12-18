@@ -28,12 +28,14 @@ export default class MXIcon extends HTMLElement {
           color: var( --icon-color );
           cursor: var( --icon-cursor );
           direction: ltr;          
+          display: inline-block;
           font-family: var( --icon-font-family );
-          font-size: var( --icon-font-size );          
+          font-size: var( --icon-size );          
           font-style: normal;          
           font-weight: var( --icon-font-weight );
           height: var( --icon-size );          
           letter-spacing: normal;
+          line-height: var( --icon-size );
           margin: 0;
           padding: 0;
           text-align: var( --icon-text-align );
@@ -61,8 +63,8 @@ export default class MXIcon extends HTMLElement {
     this.shadowRoot.appendChild( template.content.cloneNode( true ) );
 
     // Elements
-    this.$image = shadowRoot.querySelector( 'img' );
-    this.$symbol = shadowRoot.querySelector( 'i' );    
+    this.$image = this.shadowRoot.querySelector( 'img' );
+    this.$symbol = this.shadowRoot.querySelector( 'i' );    
   }
 
   // When things change

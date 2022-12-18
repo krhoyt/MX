@@ -38,7 +38,7 @@ export default class MXIconButton extends HTMLElement {
           cursor: var( --icon-button-cursor );                    
           direction: ltr;          
           font-family: var( --icon-button-font-family );
-          font-size: var( --icon-button-font-size );          
+          font-size: var( --icon-button-size );          
           font-style: normal;          
           font-weight: var( --icon-button-font-weight );
           height: var( --icon-button-size );          
