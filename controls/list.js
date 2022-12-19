@@ -104,6 +104,7 @@ export default class MXList extends HTMLElement {
     this.$empty.style.display = this._provider.length === 0 ? 'flex' : 'none';
     this.$list.style.display = this._provider.length === 0 ? 'none' : 'flex';    
 
+    // TODO: Default to 'p' if no renderer is present
     const renderer = this.itemRenderer === null ? 'mx-list-item-renderer' : this.itemRenderer;
 
     while( this.$list.children.length > this._provider.length ) {
