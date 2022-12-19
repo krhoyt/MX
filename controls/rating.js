@@ -98,6 +98,11 @@ export default class MXRating extends HTMLElement {
     const symbol = this.symbol === null ? 'star' : this.symbol;
     const value = this.value === null ? 0 : this.value;
 
+    let variation = [];
+    variation.push( `'FILL' ${this.filled ? '1' : '0'}` );
+    variation.push( `'wght' ${this.weight === null ? '400' : this.weight}` );
+    variation = variation.toString();
+
     while( this.$field.length > maximum ) {
       this.$field.children[0].removeEventListener( 'click', this.doChildClick );
       this.$field.children[0].remove();
@@ -111,24 +116,11 @@ export default class MXRating extends HTMLElement {
     }
 
     for( let c = 0; c < maximum; c++ ) {
-      if( this.symbol !== null ) {
-        const variation = [];
-  
-        if( this.filled ) {
-          variation.push( '\'FILL\' 1' );
-        }
-    
-        if( this.weight !== null ) {
-          variation.push( `'wght' ${this.weight}` );
-        }
-    
-        this.$field.children[c].style.fontVariationSettings = variation.toString();    
-      }        
-
-      this.$field.children[c].innerText = this._symbol === null ? symbol : this._symbol( c );
-
       if( this.ratingRenderer !== null ) {
         this.$field.children[c].data = c;
+      } else {
+        this.$field.children[c].style.fontVariationSettings = variation;
+        this.$field.children[c].innerText = this._symbol === null ? symbol : this._symbol( c );
       }
 
       this.$field.children[c].setAttribute( 'data-index', c + 1 );
