@@ -114,8 +114,9 @@ export default class MXRating extends HTMLElement {
       if( this.symbol !== null ) {
         const variation = [];
   
-        if( this.filled )
+        if( this.filled ) {
           variation.push( '\'FILL\' 1' );
+        }
     
         if( this.weight !== null ) {
           variation.push( `'wght' ${this.weight}` );
