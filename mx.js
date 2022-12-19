@@ -15,6 +15,7 @@ import MXFooter from "./containers/footer.js";
 import MXForm from "./containers/form.js";
 import MXHBox from "./containers/hbox.js";
 import MXHeader from "./containers/header.js";
+import MXRating from "./controls/rating.js";
 import MXRadioGroup from "./containers/radio-group.js";
 import MXTabs from "./containers/tabs.js";
 import MXToolbar from "./containers/toolbar.js";
@@ -22,4 +23,5 @@ import MXVBox from "./containers/vbox.js";
 import MXStack from "./containers/stack.js";
 
 import MXListItemRenderer from "./renderers/list-item-renderer.js";
+import MXRatingRenderer from "./renderers/rating-renderer.js";
 import MXTabRenderer from "./renderers/tab-renderer.js";
