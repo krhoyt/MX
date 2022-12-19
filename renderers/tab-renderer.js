@@ -57,14 +57,14 @@ export default class MXTabRenderer extends HTMLElement {
     this._data = null;
 
     // Root
-    const shadowRoot = this.attachShadow( {mode: 'open'} );
-    shadowRoot.appendChild( template.content.cloneNode( true ) );
+    this.attachShadow( {mode: 'open'} );
+    this.shadowRoot.appendChild( template.content.cloneNode( true ) );
 
     // Elements
-    this.$button = shadowRoot.querySelector( 'button' );
-    this.$helper = shadowRoot.querySelector( 'p[part=helper]' );    
-    this.$icon = shadowRoot.querySelector( 'i' );
-    this.$label = shadowRoot.querySelector( 'p[part=label]' );
+    this.$button = this.shadowRoot.querySelector( 'button' );
+    this.$helper = this.shadowRoot.querySelector( 'p[part=helper]' );    
+    this.$icon = this.shadowRoot.querySelector( 'i' );
+    this.$label = this.shadowRoot.querySelector( 'p[part=label]' );
   }
 
   // When things change
