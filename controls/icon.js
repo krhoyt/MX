@@ -13,37 +13,37 @@ export default class MXIcon extends HTMLElement {
 
         :host( [concealed] ) {
           visibility: hidden;
-        }        
+        }
 
         :host( [hidden] ) {
           display: none;
-        }        
+        }
 
         img {
           display: block;
         }
 
         i {
-          box-sizing: border-box;          
+          box-sizing: border-box;
           color: var( --icon-color );
           cursor: var( --icon-cursor );
-          direction: ltr;          
-          display: inline-block;
+          direction: ltr;
+          display: block;
           font-family: var( --icon-font-family );
-          font-size: var( --icon-size );          
-          font-style: normal;          
+          font-size: var( --icon-size );
+          font-style: normal;
           font-weight: var( --icon-font-weight );
-          height: var( --icon-size );          
+          height: var( --icon-size );
           letter-spacing: normal;
           line-height: var( --icon-size );
           margin: 0;
           padding: 0;
           text-align: var( --icon-text-align );
-          text-rendering: optimizeLegibility;          
-          text-transform: none;          
-          white-space: nowrap;          
+          text-rendering: optimizeLegibility;
+          text-transform: none;
+          white-space: nowrap;
           width: var( --icon-size );
-          word-wrap: normal;          
+          word-wrap: normal;
         }
 
         :host( :not( [name] ) ) i,
@@ -64,7 +64,7 @@ export default class MXIcon extends HTMLElement {
 
     // Elements
     this.$image = this.shadowRoot.querySelector( 'img' );
-    this.$symbol = this.shadowRoot.querySelector( 'i' );    
+    this.$symbol = this.shadowRoot.querySelector( 'i' );
   }
 
   // When things change
@@ -77,13 +77,13 @@ export default class MXIcon extends HTMLElement {
 
       if( this.filled )
         variation.push( '\'FILL\' 1' );
-  
+
       if( this.weight !== null ) {
         variation.push( `'wght' ${this.weight}` );
       }
-  
-      this.$symbol.style.fontVariationSettings = variation.toString();    
-    }    
+
+      this.$symbol.style.fontVariationSettings = variation.toString();
+    }
   }
 
   // Promote properties
@@ -93,18 +93,18 @@ export default class MXIcon extends HTMLElement {
       const value = this[property];
       delete this[property];
       this[property] = value;
-    }    
-  }    
+    }
+  }
 
   // Setup
   connectedCallback() {
-    this._upgrade( 'concealed' );    
-    this._upgrade( 'data' );            
-    this._upgrade( 'filled' );            
-    this._upgrade( 'hidden' );    
-    this._upgrade( 'name' );        
-    this._upgrade( 'src' );    
-    this._upgrade( 'weight' );            
+    this._upgrade( 'concealed' );
+    this._upgrade( 'data' );
+    this._upgrade( 'filled' );
+    this._upgrade( 'hidden' );
+    this._upgrade( 'name' );
+    this._upgrade( 'src' );
+    this._upgrade( 'weight' );
     this._render();
   }
 
@@ -128,7 +128,7 @@ export default class MXIcon extends HTMLElement {
 
   // Properties
   // Not reflected
-  // Array, Date, Object, null 
+  // Array, Date, Object, null
   get data() {
     return this._data;
   }
@@ -178,7 +178,7 @@ export default class MXIcon extends HTMLElement {
     } else {
       this.removeAttribute( 'filled' );
     }
-  }  
+  }
 
   get hidden() {
     return this.hasAttribute( 'hidden' );
@@ -215,7 +215,7 @@ export default class MXIcon extends HTMLElement {
       this.removeAttribute( 'name' );
     }
   }
-  
+
   get src() {
     if( this.hasAttribute( 'src' ) ) {
       return this.getAttribute( 'src' );
@@ -230,7 +230,7 @@ export default class MXIcon extends HTMLElement {
     } else {
       this.removeAttribute( 'src' );
     }
-  }  
+  }
 
   get weight() {
     if( this.hasAttribute( 'weight' ) ) {
@@ -246,7 +246,7 @@ export default class MXIcon extends HTMLElement {
     } else {
       this.removeAttribute( 'weight' );
     }
-  }            
+  }
 }
 
 window.customElements.define( 'mx-icon', MXIcon );
