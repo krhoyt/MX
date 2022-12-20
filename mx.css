@@ -29,6 +29,12 @@
   --avatar-font-size: 14px;
   --avatar-font-weight: 400;
 
+  --button-color: #000000;
+  --button-cursor: default;
+  --button-font-family: 'Roboto', sans-serif;
+  --button-font-size: 14px;
+  --button-font-weight: 400;  
+
   --divider-background-color: #000000;
   --divider-width: 1px;
 

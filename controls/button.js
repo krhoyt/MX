@@ -27,7 +27,11 @@ export default class MXButton extends HTMLElement {
 
         p {
           box-sizing: border-box;
-          cursor: var( --button-cursor );          
+          color: var( --button-color );
+          cursor: var( --button-cursor );  
+          font-family: var( --button-font-family );
+          font-size: var( --button-font-size );
+          font-weight: var( --button-font-weight );        
           margin: 0;
           padding: 0;
           text-rendering: optimizeLegibility;                    
