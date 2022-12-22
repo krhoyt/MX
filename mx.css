@@ -1,22 +1,4 @@
 @font-face {
-  font-family: 'Roboto';
-  font-weight: 700;  
-  src: url( './fonts/Roboto/Roboto-Bold.ttf' ) format( 'truetype' );
-}
-
-@font-face {
-  font-family: 'Roboto';
-  font-weight: 500;  
-  src: url( './fonts/Roboto/Roboto-Medium.ttf' ) format( 'truetype' );
-}
-
-@font-face {
-  font-family: 'Roboto';
-  font-weight: 400;  
-  src: url( './fonts/Roboto/Roboto-Regular.ttf' ) format( 'truetype' );
-}
-
-@font-face {
   font-family: 'Material Symbols Outlined';
   font-style: normal;
   src: url( './fonts/Icons/MaterialSymbolsOutlined[FILL,GRAD,opsz,wght].ttf' ) format( 'truetype' );
@@ -25,13 +7,13 @@
 :root {
   --avatar-color: #000000;
   --avatar-cursor: default;
-  --avatar-font-family: 'Roboto', sans-serif;
+  --avatar-font-family: system-ui, Roboto, Helvetica, Arial, sans-serif;
   --avatar-font-size: 14px;
   --avatar-font-weight: 400;
 
   --button-color: #000000;
   --button-cursor: default;
-  --button-font-family: 'Roboto', sans-serif;
+  --button-font-family: system-ui, Roboto, Helvetica, Arial, sans-serif;
   --button-font-size: 14px;
   --button-font-weight: 400;  
 
@@ -54,7 +36,7 @@
 
   --label-color: #000000;
   --label-cursor: default;
-  --label-font-family: 'Roboto', sans-serif;
+  --label-font-family: system-ui, Roboto, Helvetica, Arial, sans-serif;
   --label-font-size: 14px;
   --label-font-weight: 400;
 
