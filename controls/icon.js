@@ -19,10 +19,6 @@ export default class MXIcon extends HTMLElement {
           display: none;
         }
 
-        img {
-          display: block;
-        }
-
         i {
           box-sizing: border-box;
           color: var( --icon-color );
@@ -46,31 +42,38 @@ export default class MXIcon extends HTMLElement {
           word-wrap: normal;
         }
 
+        svg {
+          display: block;
+          fill: var( --icon-color );
+          height: var( --icon-size );
+          width: var( --icon-size );
+        }
+
         :host( :not( [name] ) ) i,
-        :host( [name] ) img {
+        :host( [name] ) svg {
           display: none;
         }
       </style>
-      <img part="image" />
       <i part="symbol"></i>
     `;
 
     // Properties
     this._data = null;
+    this._parser = new DOMParser();
+    this._src = null;
 
     // Root
     this.attachShadow( {mode: 'open'} );
     this.shadowRoot.appendChild( template.content.cloneNode( true ) );
 
     // Elements
-    this.$image = this.shadowRoot.querySelector( 'img' );
+    this.$image = null;
     this.$symbol = this.shadowRoot.querySelector( 'i' );
   }
 
   // When things change
   _render() {
     this.$symbol.innerText = this.name === null ? '' : this.name;
-    this.$image.src = this.src === null ? '' : this.src;
 
     if( this.name !== null ) {
       const variation = [];
@@ -84,6 +87,25 @@ export default class MXIcon extends HTMLElement {
 
       this.$symbol.style.fontVariationSettings = variation.toString();
     }
+
+    if( this.src === null ) {
+      if( this.$image !== null ) {
+        this.$image.remove();
+        this.$image = null;
+        this._src = null;
+      }
+    } else {
+      if( this.src !== this._src ) {
+        this._src = this.src;
+        fetch( this.src )
+        .then( ( response ) => response.text() )
+        .then( ( text ) => {
+          const doc = this._parser.parseFromString( text, 'text/html' );
+          this.$image = doc.body.querySelector( 'svg' );
+          this.shadowRoot.insertBefore( this.$image, this.$symbol );
+        } );
+      }
+    }    
   }
 
   // Promote properties
@@ -230,7 +252,7 @@ export default class MXIcon extends HTMLElement {
     } else {
       this.removeAttribute( 'src' );
     }
-  }
+  }  
 
   get weight() {
     if( this.hasAttribute( 'weight' ) ) {
