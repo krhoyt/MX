@@ -42,12 +42,14 @@
 
   --list-selected-background-color: lightgray;
 
+  --rating-background-image: url( '../img/star.svg' );
   --rating-color: lightgray;
   --rating-cursor: pointer;
   --rating-flex-direction: row;
   --rating-font-family: 'Material Symbols Outlined';
   --rating-font-weight: normal;
   --rating-gap: 0;
+  --rating-opacity: 0.10;
   --rating-selected-color: #000000;
   --rating-size: 24px;
 }

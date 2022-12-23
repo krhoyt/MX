@@ -49,6 +49,18 @@ export default class MXRating extends HTMLElement {
           color: var( --rating-selected-color );
         }
 
+        button.star {
+          background-image: var( --rating-background-image );
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: var( --rating-size );
+          opacity: var( --rating-opacity );
+        }
+
+        button.star.selected {
+          opacity: 1.0;
+        }
+
         div {
           display: flex;
           flex-direction: var( --rating-flex-direction );
@@ -118,9 +130,11 @@ export default class MXRating extends HTMLElement {
     for( let c = 0; c < maximum; c++ ) {
       if( this.ratingRenderer !== null ) {
         this.$field.children[c].data = c;
-      } else {
+      } else if( this.symbol !== null ) {
         this.$field.children[c].style.fontVariationSettings = variation;
-        this.$field.children[c].innerText = this._symbol === null ? symbol : this._symbol( c );
+        this.$field.children[c].innerText = this._symbol === null ? symbol : this._symbol( c );        
+      } else {
+        this.$field.children[c].className = 'star';
       }
 
       this.$field.children[c].setAttribute( 'data-index', c + 1 );
