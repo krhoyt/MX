@@ -118,9 +118,11 @@ export default class MXForm extends HTMLElement {
       const element = document.createElement( this._provider[p].type );
       element.name = this._provider[p].name;
 
-      const keys = Object.keys( this._provider[p].attributes );
-      for( let k = 0; k < keys.length; k++ ) {
-        element[keys[k]] = this._provider[p].attributes[keys[k]];
+      if( this._provider[p].hasOwnProperty( 'attributes' ) ) {
+        const keys = Object.keys( this._provider[p].attributes );
+        for( let k = 0; k < keys.length; k++ ) {
+          element[keys[k]] = this._provider[p].attributes[keys[k]];
+        }
       }
 
       this.appendChild( element );
