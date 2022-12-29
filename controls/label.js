@@ -26,6 +26,7 @@ export default class MXLabel extends HTMLElement {
         }
 
         p {
+          box-sizing: border-box;
           color: var( --label-color );
           cursor: var( --label-cursor );
           font-family: var( --label-font-family );
