@@ -17,8 +17,30 @@ export default class MXInput extends HTMLElement {
 
         :host( [hidden] ) {
           display: none;
+        } 
+        
+        :host( :not( [label] ) ) p {
+          display: none;
+        }
+
+        input {
+          box-sizing: border-box;
+          width: 100%;
+        }
+
+        p {
+          box-sizing: border-box;
+          color: var( --label-color );
+          cursor: var( --label-cursor );
+          font-family: var( --label-font-family );
+          font-size: var( --label-font-size );
+          font-weight: var( --label-font-weight );
+          margin: 0;
+          padding: 0;
+          text-rendering: optimizeLegibility;                    
         }        
       </style>
+      <p></p>
       <input />
     `;
 
@@ -31,7 +53,8 @@ export default class MXInput extends HTMLElement {
 
     // Elements
     this.$input = this.shadowRoot.querySelector( 'input' );
-    this.$input.addEventListener( 'input', () => this.doInput() );    
+    this.$input.addEventListener( 'input', () => this.doInput() );  
+    this.$label = this.shadowRoot.querySelector( 'p' );  
   }
 
   // Fake the value attribute
@@ -51,6 +74,7 @@ export default class MXInput extends HTMLElement {
     this.$input.disabled = this.disabled;    
     this.$input.readOnly = this.readOnly;        
     this.$input.inputMode = this.mode === null ? '' : this.mode;
+    this.$label.innerText = this.label === null ? '' : this.label;
   }
 
   // Promote properties
@@ -69,6 +93,7 @@ export default class MXInput extends HTMLElement {
     this._upgrade( 'data' );            
     this._upgrade( 'disabled' );                
     this._upgrade( 'hidden' );    
+    this._upgrade( 'label' );                
     this._upgrade( 'mode' );        
     this._upgrade( 'name' );            
     this._upgrade( 'placeholder' );        
@@ -84,6 +109,7 @@ export default class MXInput extends HTMLElement {
       'concealed',
       'disabled',
       'hidden',
+      'label',
       'mode',
       'name',
       'placeholder',
@@ -183,6 +209,22 @@ export default class MXInput extends HTMLElement {
       }
     } else {
       this.removeAttribute( 'hidden' );
+    }
+  }
+
+  get label() {
+    if( this.hasAttribute( 'label' ) ) {
+      return this.getAttribute( 'label' );
+    }
+
+    return null;
+  }
+
+  set label( content ) {
+    if( content !== null ) {
+      this.setAttribute( 'label', content );
+    } else {
+      this.removeAttribute( 'label' );
     }
   }
 
