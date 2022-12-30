@@ -15,20 +15,26 @@ export default class MXInput extends HTMLElement {
           visibility: hidden;
         }        
 
-        :host( [hidden] ) {
-          display: none;
-        } 
-        
-        :host( :not( [label] ) ) p {
+        :host( [hidden] ),
+        :host( :not( [label] ) ) p[part=label],
+        :host( :not( [helper] ) ) p[part=helper] {
           display: none;
         }
 
         input {
           box-sizing: border-box;
+          color: var( --input-color );
+          font-family: var( --input-font-family );
+          font-size: var( --input-font-size );
+          font-weight: var( --input-font-weight );          
+          text-rendering: optimizeLegibility;
           width: 100%;
+          -webkit-tap-highlight-color: transparent;                              
         }
 
-        p {
+        p[part=error],
+        p[part=helper],
+        p[part=label] {
           box-sizing: border-box;
           color: var( --label-color );
           cursor: var( --label-cursor );
@@ -40,8 +46,10 @@ export default class MXInput extends HTMLElement {
           text-rendering: optimizeLegibility;                    
         }        
       </style>
-      <p></p>
-      <input />
+      <p part="label"></p>
+      <p part="helper"></p>
+      <input part="input" />
+      <p part="error">&nbsp;</p>
     `;
 
     // Properties
@@ -52,9 +60,11 @@ export default class MXInput extends HTMLElement {
     this.shadowRoot.appendChild( template.content.cloneNode( true ) );
 
     // Elements
+    this.$error = this.shadowRoot.querySelector( 'p[part=error]' );      
+    this.$helper = this.shadowRoot.querySelector( 'p[part=helper]' );    
     this.$input = this.shadowRoot.querySelector( 'input' );
     this.$input.addEventListener( 'input', () => this.doInput() );  
-    this.$label = this.shadowRoot.querySelector( 'p' );  
+    this.$label = this.shadowRoot.querySelector( 'p[part=label]' );  
   }
 
   // Fake the value attribute
@@ -69,6 +79,8 @@ export default class MXInput extends HTMLElement {
 
   // When things change
   _render() {
+    this.$error.innerHtml = this.error === null ? '&nbsp;' : this.error;
+    this.$helper.innerText = this.helper === null ? '' : this.helper;    
     this.$input.placeholder = this.placeholder === null ? '' : this.placeholder;
     this.$input.type = this.type === null ? 'text' : this.type;
     this.$input.disabled = this.disabled;    
@@ -92,6 +104,8 @@ export default class MXInput extends HTMLElement {
     this._upgrade( 'concealed' );    
     this._upgrade( 'data' );            
     this._upgrade( 'disabled' );                
+    this._upgrade( 'error' );                    
+    this._upgrade( 'helper' );                        
     this._upgrade( 'hidden' );    
     this._upgrade( 'label' );                
     this._upgrade( 'mode' );        
@@ -108,6 +122,8 @@ export default class MXInput extends HTMLElement {
     return [
       'concealed',
       'disabled',
+      'error',
+      'helper',
       'hidden',
       'label',
       'mode',
@@ -189,6 +205,38 @@ export default class MXInput extends HTMLElement {
       }
     } else {
       this.removeAttribute( 'disabled' );
+    }
+  }  
+
+  get error() {
+    if( this.hasAttribute( 'error' ) ) {
+      return this.getAttribute( 'error' );
+    }
+
+    return null;
+  }
+
+  set error( content ) {
+    if( content !== null ) {
+      this.setAttribute( 'error', content );
+    } else {
+      this.removeAttribute( 'error' );
+    }
+  }
+  
+  get helper() {
+    if( this.hasAttribute( 'helper' ) ) {
+      return this.getAttribute( 'helper' );
+    }
+
+    return null;
+  }
+
+  set helper( content ) {
+    if( content !== null ) {
+      this.setAttribute( 'helper', content );
+    } else {
+      this.removeAttribute( 'helper' );
     }
   }  
 

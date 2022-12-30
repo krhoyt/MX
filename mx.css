@@ -28,6 +28,11 @@
   --icon-button-size: 24px;
   --icon-button-text-align: center;  
 
+  --input-color: #000000;
+  --input-font-family: system-ui, Roboto, Helvetica, Arial, sans-serif;
+  --input-font-size: 14px;
+  --input-font-weight: 400;  
+
   --label-color: #000000;
   --label-cursor: default;
   --label-font-family: system-ui, Roboto, Helvetica, Arial, sans-serif;
