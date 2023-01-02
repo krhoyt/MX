@@ -96,7 +96,13 @@ export default class MXIcon extends HTMLElement {
       }
     } else {
       if( this.src !== this._src ) {
+        if( this.$image !== null ) {
+          this.$image.remove();
+          this.$image = null;
+        }
+
         this._src = this.src;
+        
         fetch( this.src )
         .then( ( response ) => response.text() )
         .then( ( text ) => {
