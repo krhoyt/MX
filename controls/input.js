@@ -15,15 +15,27 @@ export default class MXInput extends HTMLElement {
           visibility: hidden;
         }        
 
-        :host( [hidden] ),
-        :host( :not( [label] ) ) p[part=label],
-        :host( :not( [helper] ) ) p[part=helper] {
+        :host( [hidden] ) {
           display: none;
+        }
+
+        button {
+          box-sizing: border-box;
+          text-rendering: optimizeLegibility; 
+          -webkit-tap-highlight-color: transparent;                                                 
+        }
+
+        div {
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: row;
         }
 
         input {
           box-sizing: border-box;
           color: var( --input-color );
+          flex-basis: 0;
+          flex-grow: 1;
           font-family: var( --input-font-family );
           font-size: var( --input-font-size );
           font-weight: var( --input-font-weight );          
@@ -32,12 +44,16 @@ export default class MXInput extends HTMLElement {
           -webkit-tap-highlight-color: transparent;                              
         }
 
-        p[part=error],
-        p[part=helper],
-        p[part=label] {
+        input::placeholder {
+          color: var( --input-placeholder-color );
+        }
+
+        p {
           box-sizing: border-box;
           color: var( --label-color );
           cursor: var( --label-cursor );
+          flex-basis: 0;
+          flex-grow: 1;
           font-family: var( --label-font-family );
           font-size: var( --label-font-size );
           font-weight: var( --label-font-weight );
@@ -47,9 +63,22 @@ export default class MXInput extends HTMLElement {
         }        
       </style>
       <p part="label"></p>
-      <p part="helper"></p>
-      <input part="input" />
-      <p part="error">&nbsp;</p>
+      <div part="above">      
+        <p part="hint"></p>
+        <slot></slot>
+      </div>
+      <div part="field">
+        <slot name="leading"></slot>
+        <input part="input" />
+        <slot name="suffix"></slot>
+        <button part="password"></button>
+        <button part="clear"></button>
+        <slot name="trailing"></slot>
+      </div>
+      <div part="below">
+        <p part="helper"></p>
+        <slot name="extra"></slot>
+      </div>
     `;
 
     // Properties
@@ -60,33 +89,36 @@ export default class MXInput extends HTMLElement {
     this.shadowRoot.appendChild( template.content.cloneNode( true ) );
 
     // Elements
-    this.$error = this.shadowRoot.querySelector( 'p[part=error]' );      
-    this.$helper = this.shadowRoot.querySelector( 'p[part=helper]' );    
+    this.$clear = this.shadowRoot.querySelector( 'button[part=clear]' );
+    this.$clear.addEventListener( 'click', () => this.doClearClick() );
+    this.$helper = this.shadowRoot.querySelector( 'p[part=helper]' );      
+    this.$hint = this.shadowRoot.querySelector( 'p[part=hint]' );    
     this.$input = this.shadowRoot.querySelector( 'input' );
-    this.$input.addEventListener( 'input', () => this.doInput() );  
+    this.$input.addEventListener( 'keyup', () => this.doKeyUp() );  
     this.$label = this.shadowRoot.querySelector( 'p[part=label]' );  
+  }
+
+  doClearClick() {
+    this.value = null;
+    this.$input.focus();
   }
 
   // Fake the value attribute
   // Not part of the attribute changes
-  doInput() {
-    if( this.$input.value.trim().length === 0 ) {
-      this.removeAttribute( 'value' );
-    } else {
-      this.setAttribute( 'value', this.$input.value );
-    }    
+  doKeyUp() {
+    this.value = this.$input.value.length === 0 ? null : this.$input.value;
   }  
 
   // When things change
   _render() {
-    this.$error.innerHtml = this.error === null ? '&nbsp;' : this.error;
-    this.$helper.innerText = this.helper === null ? '' : this.helper;    
+    this.$label.innerText = this.label === null ? '' : this.label;    
+    this.$hint.innerText = this.hint === null ? '' : this.hint;
     this.$input.placeholder = this.placeholder === null ? '' : this.placeholder;
     this.$input.type = this.type === null ? 'text' : this.type;
     this.$input.disabled = this.disabled;    
     this.$input.readOnly = this.readOnly;        
     this.$input.inputMode = this.mode === null ? '' : this.mode;
-    this.$label.innerText = this.label === null ? '' : this.label;
+    this.$helper.innerText = this.helper === null ? '' : this.helper;        
   }
 
   // Promote properties
@@ -104,9 +136,9 @@ export default class MXInput extends HTMLElement {
     this._upgrade( 'concealed' );    
     this._upgrade( 'data' );            
     this._upgrade( 'disabled' );                
-    this._upgrade( 'error' );                    
     this._upgrade( 'helper' );                        
     this._upgrade( 'hidden' );    
+    this._upgrade( 'hint' );                        
     this._upgrade( 'label' );                
     this._upgrade( 'mode' );        
     this._upgrade( 'name' );            
@@ -122,9 +154,9 @@ export default class MXInput extends HTMLElement {
     return [
       'concealed',
       'disabled',
-      'error',
       'helper',
       'hidden',
+      'hint',      
       'label',
       'mode',
       'name',
@@ -207,22 +239,6 @@ export default class MXInput extends HTMLElement {
       this.removeAttribute( 'disabled' );
     }
   }  
-
-  get error() {
-    if( this.hasAttribute( 'error' ) ) {
-      return this.getAttribute( 'error' );
-    }
-
-    return null;
-  }
-
-  set error( content ) {
-    if( content !== null ) {
-      this.setAttribute( 'error', content );
-    } else {
-      this.removeAttribute( 'error' );
-    }
-  }
   
   get helper() {
     if( this.hasAttribute( 'helper' ) ) {
@@ -257,6 +273,22 @@ export default class MXInput extends HTMLElement {
       }
     } else {
       this.removeAttribute( 'hidden' );
+    }
+  }
+
+  get hint() {
+    if( this.hasAttribute( 'hint' ) ) {
+      return this.getAttribute( 'hint' );
+    }
+
+    return null;
+  }
+
+  set hint( content ) {
+    if( content !== null ) {
+      this.setAttribute( 'hint', content );
+    } else {
+      this.removeAttribute( 'hint' );
     }
   }
 

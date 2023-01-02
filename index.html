@@ -157,7 +157,10 @@
         <mx-button label="Add review" variant="filled"></mx-button>
       </mx-list>
       <mx-vbox>
-        <mx-input></mx-input>
+        <mx-input helper="Helper" hint="Hint" label="Label" placeholder="Placeholder">
+          <mx-label text="123/45"></mx-label>
+          <mx-label slot="extra" text="123/45"></mx-label>          
+        </mx-input>
       </mx-vbox>
     </mx-hbox>
     <mx-data-grid>
